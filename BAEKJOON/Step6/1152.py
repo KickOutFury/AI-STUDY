@@ -1,7 +1,9 @@
-a = list(input().split(" "))
-sum = 0
+a = list(input().split())
+ct = 0
 for ch in a:
-    if ch != '':
-        sum += 1
+        ct += 1
+print(ct)
 
-print(sum)
+# 축약
+
+# print(len(input().split()))
