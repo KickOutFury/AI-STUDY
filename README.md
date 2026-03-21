@@ -16,3 +16,8 @@ Process
 5. RandomForest model
 
 Score 0.83;
+
+26-03-21
+Kaggle House prices Prediction
+
+1st Sub 0.12692 / 1000th
