@@ -31,5 +31,20 @@ Kaggle House prices Prediction
 - Achieved Kaggle score: 0.12629 (Top ~935)
 
 ### Insight
+
 - Linear models performed better due to feature engineering and log transformation
 - Ensemble improved stability and overall performance
+
+26-03-23
+### Ensemble Optimization
+
+- Fine-tuned ensemble weights between Lasso and LightGBM
+- Best result achieved at 0.45(Lasso) / 0.55(LGBM)
+- Final Score: 0.12334
+- Ranking: Top ~600
+
+### Insight
+
+- Lasso showed the best individual Performance
+- LightGBM contributed to ensemble diversity
+- Fine weight tuning significantly improved ranking
