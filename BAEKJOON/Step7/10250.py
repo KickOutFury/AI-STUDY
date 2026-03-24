@@ -7,7 +7,7 @@ for _ in range(T):
         fl = H
         no = N // H
     else:
-        no = (N//H) +1
+        no = (N//H) +1 
         fl = N % H
 
     print(f"{fl}{no:02d}")
