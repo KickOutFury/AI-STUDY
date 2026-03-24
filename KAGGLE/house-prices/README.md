@@ -24,3 +24,8 @@
 - Lasso showed the best individual Performance
 - LightGBM contributed to ensemble diversity
 - Fine weight tuning significantly improved ranking
+
+26-03-24
+- Fine-tuned ensemble weights between Lasso and LightGBM
+- Optimal ratio found near 0.45 (Lasso) / 0.55 (LGBM)
+- Observed that model diversity significantly impacts performance
