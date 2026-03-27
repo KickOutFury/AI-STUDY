@@ -82,3 +82,22 @@ Kaggle House Prices 프로젝트로, 주택 가격을 예측하는 머신러닝 
 ## Next Step
 - OOF Stacking 적용
 - 딥러닝 프로젝트(Digit Recognizer) 시작
+
+## Model Pipeline
+1. Data Preprocessing
+2. Feature Engineering
+3. Model Training (Lasso, Ridge, LGBM)
+4. Ensemble (Weighted Average)
+
+## Final Model
+- Lasso (0.45)
+- LightGBM (0.55)
+
+## Result
+- Public Score: 0.12334
+- Rank: Top 600
+
+## What I Learned
+- Feature engineering is critical in tabular data
+- Linear models can outperform tree models
+- Ensemble improves stability and performance
