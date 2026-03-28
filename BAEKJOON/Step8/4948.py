@@ -19,19 +19,17 @@
 #                 cnt += 1
 #     print(cnt)
 
+# 시간초과로 에라토스테네스의 체 사용
 limit = 246912
 
-# 처음엔 전부 소수라고 가정
 prime = [True] * (limit + 1)
 prime[0] = prime[1] = False
 
-# 에라토스테네스의 체
 for i in range(2, int(limit**0.5) + 1):
     if prime[i]:
         for j in range(i * i, limit + 1, i):
             prime[j] = False
 
-# 입력 처리
 while True:
     n = int(input())
     if n == 0:
@@ -43,5 +41,3 @@ while True:
             cnt += 1
 
     print(cnt)
-
-    
