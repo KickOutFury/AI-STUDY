@@ -58,3 +58,14 @@ Kaggle Digit Recognizer 프로젝트로, 손글씨 숫자 이미지를 분류하
 - CNN 성능 개선 (Dropout, BatchNorm)
 - 데이터 증강 (augmentation)
 - 더 깊은 모델 설계
+
+26-03-28
+## Model Improvement
+- Added Batch Normalization after convolution layers
+- Added Dropout before the fully connected layer
+- Increased epochs to 7
+
+## Improved Result
+- Best Validation Accuracy: 0.9883
+- Kaggle Score: 0.98603
+- Rank: 582
