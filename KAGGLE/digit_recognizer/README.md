@@ -83,3 +83,15 @@ Kaggle Digit Recognizer 프로젝트로, 손글씨 숫자 이미지를 분류하
 ## What I Learned
 - Learned that Early Stopping patience affects model performance and generalization.
 - Confirmed that saving the best checkpoint is important for stable submission performance.
+
+## Model Improvement
+- Added Batch Normalization and Dropout
+- Applied Early Stopping with model checkpointing
+- Added data augmentation:
+  - RandomRotation(10)
+  - RandomAffine with translation
+
+## Improved Result
+- Best Validation Accuracy: **0.9915**
+- Kaggle Score: **0.98975**
+- Kaggle Rank: **433**
