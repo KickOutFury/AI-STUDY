@@ -69,3 +69,17 @@ Kaggle Digit Recognizer 프로젝트로, 손글씨 숫자 이미지를 분류하
 - Best Validation Accuracy: 0.9883
 - Kaggle Score: 0.98603
 - Rank: 582
+
+26-03-29
+## Training Improvement
+- Added Early Stopping to prevent overfitting
+- Tuned patience from 1 to 2
+- Saved the best model checkpoint during training
+
+## Improved Result
+- Best Kaggle Score: **0.98871**
+- Kaggle Rank: **485**
+
+## What I Learned
+- Learned that Early Stopping patience affects model performance and generalization.
+- Confirmed that saving the best checkpoint is important for stable submission performance.
