@@ -95,3 +95,27 @@ Kaggle Digit Recognizer 프로젝트로, 손글씨 숫자 이미지를 분류하
 - Best Validation Accuracy: **0.9915**
 - Kaggle Score: **0.98975**
 - Kaggle Rank: **433**
+
+26-03-30
+# Digit Recognizer (CNN)
+
+## Overview
+- MNIST 기반 숫자 분류 모델
+
+## Model
+- CNN (Conv2d, BatchNorm, Dropout)
+
+## Techniques
+- Early Stopping
+- Data Augmentation
+- Model Checkpoint
+
+## Results
+- Validation Accuracy: 0.9915
+- Kaggle Score: 0.98975
+- Rank: 433
+
+## What I Learned
+- Early Stopping importance
+- Data augmentation improves generalization
+- Model tuning process
