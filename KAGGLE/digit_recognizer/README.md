@@ -1,25 +1,26 @@
-26-03-27
 # Digit Recognizer (CNN)
 
 ## Overview
-Kaggle Digit Recognizer 프로젝트로, 손글씨 숫자 이미지를 분류하는 CNN 모델을 구현했습니다.
+Kaggle Digit Recognizer 프로젝트로, 손글씨 숫자 이미지를 분류하는 CNN 모델을 구현하고 성능을 개선했습니다.
 
 ## Goal
-- 이미지 데이터 처리 이해
+- 이미지 데이터 전처리 흐름 이해
 - CNN 구조 학습
-- 딥러닝 전체 학습 흐름 경험
+- 모델 성능 개선 과정 경험
+- Kaggle 제출을 통한 실전 검증
 
 ## Dataset
 - 28x28 grayscale handwritten digit images
 - train.csv / test.csv
 
 ## Preprocessing
-- `iloc`로 X, y 분리
-- 픽셀값 정규화 (`/ 255.0`)
-- train / validation 분리
+- `iloc`를 사용해 X, y 분리
+- 픽셀값 정규화 (`/255.0`)
+- train / validation split
 - reshape: `(N, 28, 28)` → `(N, 1, 28, 28)`
 
-## Model Architecture
+## Model Development
+### Baseline CNN
 - Conv2d (1 → 32)
 - ReLU
 - MaxPool2d
@@ -30,92 +31,71 @@ Kaggle Digit Recognizer 프로젝트로, 손글씨 숫자 이미지를 분류하
 - Linear (3136 → 128)
 - Linear (128 → 10)
 
+### Improved CNN
+- Added Batch Normalization
+- Added Dropout
+- Applied Early Stopping
+- Saved best model checkpoint
+- Applied Data Augmentation
+  - `RandomRotation(10)`
+  - `RandomAffine(translate=(0.1, 0.1))`
+
 ## Training
 - Loss: CrossEntropyLoss
-- Optimizer: Adam (lr=0.001)
-- Epochs: 5
+- Optimizer: Adam (`lr=0.001`)
+- Early Stopping with patience tuning
+- Model checkpoint saving
 
-## Result
-- Validation Accuracy: ~98.5%
+## Results
+- Best Validation Accuracy: **0.9915**
+- Best Kaggle Score: **0.98975**
+- Best Kaggle Rank: **433**
 
-### Kaggle Submission
-- Score: **0.98425**
-- Rank: **616 / (전체 참가자)**
+## Improvement History
+- Baseline CNN: **0.98425** / Rank **616**
+- BatchNorm + Dropout: **0.98603** / Rank **582**
+- Early Stopping: **0.98871** / Rank **485**
+- Data Augmentation: **0.98975** / Rank **433**
 
 ## What I Learned
-- 이미지 데이터는 2D 배열이며 CNN 입력 형태로 변환이 필요하다
-- Conv → ReLU → Pool → Linear 구조를 이해했다
-- `forward → loss → backward → optimizer` 학습 흐름 이해
-- `torch.max(dim=1)`을 통해 예측값을 추출하는 방법 이해
+- 이미지 데이터는 숫자 배열이며 CNN 입력 형태로 변환해야 한다
+- `forward → loss → backward → optimizer step` 학습 흐름을 이해했다
+- BatchNorm과 Dropout이 학습 안정성과 일반화에 도움을 준다는 점을 확인했다
+- Early Stopping과 checkpoint 저장이 실제 성능 개선에 중요하다는 점을 배웠다
+- Data augmentation이 Kaggle 점수 향상에 효과적이라는 것을 확인했다
 
-## Key Concepts
-- Convolution: 이미지 특징 추출
-- ReLU: 비선형성 추가
-- MaxPooling: 크기 축소 및 중요한 특징 유지
-- Linear Layer: 최종 분류
+## Tech Stack
+- Python
+- PyTorch
+- torchvision
+- pandas
+- matplotlib
 
 ## Next Step
-- CNN 성능 개선 (Dropout, BatchNorm)
-- 데이터 증강 (augmentation)
-- 더 깊은 모델 설계
+- 더 복잡한 이미지 분류 프로젝트 진행
+- CNN 구조 확장 및 추가 실험
+- 이후 LLM / RAG 학습으로 확장
 
-26-03-28
-## Model Improvement
-- Added Batch Normalization after convolution layers
-- Added Dropout before the fully connected layer
-- Increased epochs to 7
+## Experiment Log
 
-## Improved Result
-- Best Validation Accuracy: 0.9883
+### 26-03-27
+- Baseline CNN implemented
+- Kaggle Score: 0.98425
+- Rank: 616
+
+### 26-03-28
+- Added BatchNorm and Dropout
 - Kaggle Score: 0.98603
 - Rank: 582
 
-26-03-29
-## Training Improvement
-- Added Early Stopping to prevent overfitting
-- Tuned patience from 1 to 2
-- Saved the best model checkpoint during training
+### 26-03-29
+- Added Early Stopping and checkpoint
+- Tuned patience to 2
+- Kaggle Score: 0.98871
+- Rank: 485
 
-## Improved Result
-- Best Kaggle Score: **0.98871**
-- Kaggle Rank: **485**
-
-## What I Learned
-- Learned that Early Stopping patience affects model performance and generalization.
-- Confirmed that saving the best checkpoint is important for stable submission performance.
-
-## Model Improvement
-- Added Batch Normalization and Dropout
-- Applied Early Stopping with model checkpointing
-- Added data augmentation:
-  - RandomRotation(10)
-  - RandomAffine with translation
-
-## Improved Result
-- Best Validation Accuracy: **0.9915**
-- Kaggle Score: **0.98975**
-- Kaggle Rank: **433**
-
-26-03-30
-# Digit Recognizer (CNN)
-
-## Overview
-- MNIST 기반 숫자 분류 모델
-
-## Model
-- CNN (Conv2d, BatchNorm, Dropout)
-
-## Techniques
-- Early Stopping
-- Data Augmentation
-- Model Checkpoint
-
-## Results
-- Validation Accuracy: 0.9915
+### 26-03-30
+- Applied data augmentation
+- Best Validation Accuracy: 0.9915
 - Kaggle Score: 0.98975
 - Rank: 433
-
-## What I Learned
-- Early Stopping importance
-- Data augmentation improves generalization
-- Model tuning process

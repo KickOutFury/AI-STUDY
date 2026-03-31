@@ -1,108 +1,40 @@
-# AI-study
-
-26-03-14
-Kaggle Titanic Survival Prediction
-
-Tech stack
-- python
-- pandas
-- Scikit-learn
-
-Process
-1. EDA
-2. Feature Engineering
-3. Encoding
-4. Logistic Regression baseline
-5. RandomForest model
-
-Score 0.83;
-
-26-03-21
-Kaggle House prices Prediction
-
-1st Sub 0.12692 / 1000th
-
-26-03-22
-### Ensemble Strategy Update
-
-- Compared Ridge, Lasso, and LightGBM models
-- Ridge showed best individual performance
-- Applied ensemble using Lasso + LightGBM
-- Achieved Kaggle score: 0.12629 (Top ~935)
-
-### Insight
-
-- Linear models performed better due to feature engineering and log transformation
-- Ensemble improved stability and overall performance
-
-26-03-23
-### Ensemble Optimization
-
-- Fine-tuned ensemble weights between Lasso and LightGBM
-- Best result achieved at 0.45(Lasso) / 0.55(LGBM)
-- Final Score: 0.12334
-- Ranking: Top ~600
-
-### Insight
-
-- Lasso showed the best individual Performance
-- LightGBM contributed to ensemble diversity
-- Fine weight tuning significantly improved ranking
-
-26-03-24
-- Fine-tuned ensemble weights between Lasso and LightGBM
-- Optimal ratio found near 0.45 (Lasso) / 0.55 (LGBM)
-- Observed that model diversity significantly impacts performance
-
-26-03-26
-# House Prices Prediction
+# AI Study Portfolio
 
 ## Overview
-Kaggle House Prices 프로젝트로, 주택 가격을 예측하는 머신러닝 모델을 만들었습니다.
+This repository contains my machine learning and deep learning projects, mainly focused on Kaggle competitions and model improvement.
 
-## Goal
-- 데이터 전처리
-- Feature Engineering
-- 여러 모델 비교
-- 앙상블을 통해 성능 개선
+## Projects
 
-## Dataset
-- train.csv
-- test.csv
-- Kaggle House Prices dataset
+### 1. Titanic Survival Prediction
+- Model: Logistic Regression, RandomForest
+- Score: 0.83
+- Focus: Basic ML pipeline, feature engineering
 
-## Preprocessing
-- 결측치 처리
-- 로그 변환: `SalePrice -> log1p(SalePrice)`
-- 범주형 변수 인코딩
-- feature alignment
+### 2. House Prices Prediction
+- Models: Ridge, Lasso, LightGBM
+- Best Score: 0.12334
+- Rank: Top 600
+- Focus: Feature engineering, ensemble learning
 
-## Feature Engineering
-- TotalSF
-- TotalBathrooms
-- HouseAge
-- TotalRooms
+### 3. Digit Recognizer (CNN)
+- Model: CNN (PyTorch)
+- Best Score: 0.98975
+- Rank: Top 433
+- Focus: Deep learning, augmentation, early stopping
 
-## Models
-- RandomForestRegressor
-- Ridge
-- Lasso
+## Tech Stack
+- Python
+- pandas, numpy
+- scikit-learn
+- PyTorch
 - LightGBM
 
-## Validation
-- Cross Validation 사용
-- RMSE 기준으로 모델 비교
+## Learning Focus
+- Machine Learning fundamentals
+- Deep Learning (CNN)
+- Model optimization and ensemble techniques
 
-## Best Result
-- Best Kaggle Score: `0.12334`
-- Best Rank: `609`
-
-## Key Insight
-- 선형 모델이 예상보다 강력했다
-- Lasso가 가장 좋은 단일 모델이었다
-- LGBM은 단독 성능보다 앙상블 보조 모델로 더 유용했다
-- 모델 다양성이 앙상블 성능에 중요했다
-
-## Next Step
-- OOF Stacking 적용
-- 딥러닝 프로젝트(Digit Recognizer) 시작
+## Next Goals
+- Advanced CNN architectures
+- NLP (LLM / RAG systems)
+- MLOps and deployment
