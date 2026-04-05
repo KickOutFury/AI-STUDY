@@ -49,3 +49,11 @@
 - Augmentation did not produce a dramatic gain, but showed a small improvement under controlled comparison
 - Slightly longer training with patience=3 helped the model reach a better peak
 - In this setup, augmentation required more training time to show its benefit
+
+26-04-06
+## [DL] RandomErasing + LR Scheduler 비교 실험
+
+- Added RandomErasing augmentation
+- Compared StepLR and ReduceLROnPlateau
+- StepLR performed better (0.9415)
+- Plateau reduced LR too early due to validation fluctuations
