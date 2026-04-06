@@ -140,3 +140,42 @@ CNN 모델을 기반으로 Fashion-MNIST 데이터셋을 학습하고,
 - Conv layer 추가 실험
 - Confusion Matrix 기반 오분류 분석
 - 0.95 accuracy 도전
+
+26-04-06
+## GAP Experiment
+- Replaced the Flatten-based classifier with Global Average Pooling (GAP)
+- GAP reduced the classifier input size and made the model more compact
+- However, in this experiment, the original Flatten-based classifier slightly outperformed GAP
+
+### Comparison
+- Flatten-based model: **0.9468**
+- GAP-based model: **0.9462**
+
+### Insight
+- GAP improved model compactness and reduced parameters
+- However, the Flatten-based classifier preserved more spatial information, which was slightly more effective for Fashion-MNIST
+
+## RandomErasing Probability Tuning
+- Compared `p=0.3` and `p=0.2`
+- Both settings achieved a similar best validation accuracy (~0.9468)
+- `p=0.2` showed slightly more stable validation behavior in later epochs
+- In this setup, changing the erasing probability did not lead to a clear performance gain
+
+## Augmentation Fine-Tuning
+- Reduced RandomRotation from 8 to 5 while keeping RandomErasing at 0.2
+- This setting produced the best validation accuracy: **0.9473**
+- A smaller rotation range appeared to preserve class-specific shape information better on Fashion-MNIST
+
+## Insight
+- Stronger augmentation was not always better
+- In this setup, milder rotation improved performance slightly while maintaining generalization
+
+## Dropout Tuning
+- Compared Dropout 0.30 and 0.25 under the same augmentation and scheduler settings
+- Dropout 0.30 performed slightly better
+- Best result with Dropout 0.30: **0.9473**
+- Best result with Dropout 0.25: **0.9463**
+
+## Insight
+- Reducing dropout slightly improved training loss, but did not improve validation accuracy
+- In this setup, Dropout 0.30 provided better regularization and generalization
