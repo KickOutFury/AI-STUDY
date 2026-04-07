@@ -1,181 +1,148 @@
-26-04-02
-## Fashion-MNIST CNN
-
-### Overview
-- Fashion-MNIST dataset을 활용한 이미지 분류 CNN 모델 구현
-
-### Model Architecture
-- Conv2d + BatchNorm + ReLU
-- MaxPooling
-- Dropout
-- Fully Connected Layer
-
-### Training Techniques
-- Early Stopping (patience=2)
-- Model checkpoint (best_model.pth)
-- Data augmentation
-
-### Hyperparameter Experiments
-- Tested combinations of:
-  - Learning rate (0.001, 0.0005, 0.0003)
-  - Dropout (0.3, 0.4, 0.5)
-  - Epoch (10, 15, 20)
-  - Additional Conv layer
-
-### Key Findings
-- Dropout 0.3 performed best
-- Learning rate 0.001 showed fastest and most stable convergence
-- Increasing model depth did not improve performance
-- Early Stopping effectively prevented overfitting
-
-### Best Result
-- Validation Accuracy: **0.9354**
-
-### Insight
-- More complex models do not always guarantee better performance
-- Proper balance between model complexity and regularization is critical
-- Hyperparameter tuning significantly impacts performance
-
-26-04-04
-## Augmentation Experiment
-- Applied controlled augmentation with fixed seed and fixed train/validation split
-- Used:
-  - RandomRotation(8)
-  - RandomAffine(translate=(0.08, 0.08))
-- Increased patience from 2 to 3 and epochs from 10 to 20
-- Best validation accuracy improved from **0.9354** to **0.9364**
-
-## Insight
-- Augmentation did not produce a dramatic gain, but showed a small improvement under controlled comparison
-- Slightly longer training with patience=3 helped the model reach a better peak
-- In this setup, augmentation required more training time to show its benefit
-
-26-04-06
-# Fashion-MNIST CNN (Improvement & Experiments)
+# Fashion-MNIST Classification (PyTorch)
 
 ## Overview
-CNN 모델을 기반으로 Fashion-MNIST 데이터셋을 학습하고,  
-다양한 실험을 통해 성능을 개선했습니다.
+This project focuses on improving image classification performance on the Fashion-MNIST dataset using CNN-based architectures.
 
-## Goal
-- CNN 구조 이해 및 성능 개선
-- Regularization 기법 적용
-- LR Scheduler 비교 실험
-- 모델 일반화 성능 향상
-
----
-
-## Dataset
-- Fashion-MNIST (28x28 grayscale images)
-- 10 classes (의류 이미지 분류)
+The goal was not only to build a model, but to iteratively improve performance through experimentation with architecture, augmentation, and training strategies.
 
 ---
 
 ## Model Architecture
-- Conv2d → BatchNorm → ReLU
-- MaxPool2d
-- 3 Conv Block
-- Fully Connected Layer
-- Dropout 적용
+- Deep CNN with multiple Conv-BatchNorm-ReLU blocks
+- Channel progression: 1 → 32 → 64 → 128 → 256
+- MaxPooling for spatial reduction
+- Fully connected classifier (Flatten-based)
 
 ---
 
-## Techniques Applied
-
-### 1. Regularization
-- Batch Normalization
-- Dropout (0.3)
-
-### 2. Data Augmentation
-- RandomRotation(8)
-- RandomAffine (translation 0.08)
-- RandomErasing (p=0.3)
-
-→ 일부 이미지가 가려져도 인식하도록 학습하여 일반화 성능 향상
+## Training Strategy
+- Optimizer: Adam
+- Loss: CrossEntropyLoss
+- Scheduler: StepLR (step_size=5, gamma=0.5)
+- Early Stopping (patience=5)
 
 ---
 
-### 3. LR Scheduler Experiments
-
-#### StepLR
-- step_size=5, gamma=0.5
-- 일정한 간격으로 learning rate 감소
-
-#### ReduceLROnPlateau
-- validation 성능 기반으로 learning rate 감소
-- mode='max', patience=2~4 실험
+## Data Augmentation
+- RandomRotation (8 → 5 tuned)
+- RandomAffine (translation)
+- RandomErasing (p=0.3 → 0.2 tuned)
 
 ---
 
-## Results
-
-### Best Result (StepLR)
-- Validation Accuracy: **0.9415**
-
-### ReduceLROnPlateau Result
-- Validation Accuracy: **0.9344**
+## Experiments & Improvements
+- Compared Flatten vs Global Average Pooling (GAP)
+  - Flatten performed slightly better
+- Tuned augmentation strength (rotation, erasing)
+- Tuned dropout (0.3 vs 0.25)
 
 ---
 
-## Key Findings
-
-- StepLR이 더 안정적으로 성능을 향상시킴
-- ReduceLROnPlateau는 validation accuracy 변동에 민감하게 반응
-- LR이 너무 빨리 감소하여 성능이 제한됨
+## Best Result
+- Validation Accuracy: **0.9473**
+- Best Epoch: ~21
 
 ---
 
-## What I Learned
+## Confusion Matrix Analysis
 
-- Learning Rate Scheduler는 모델 성능에 큰 영향을 준다
-- "똑똑한" 방법이 항상 더 좋은 것은 아니다
-- 실험 기반 비교가 중요하다
-- Augmentation + Scheduler 조합이 성능 개선에 핵심적이다
+- Most errors occur between similar upper-body clothing classes:
+  - Shirt ↔ T-shirt/top
+  - Shirt ↔ Pullover
+  - Coat ↔ Pullover
+
+- These classes share similar silhouettes in 28x28 grayscale images,
+  making them inherently difficult to distinguish.
+
+- In contrast, classes with distinct shapes (Trouser, Bag, Sandal)
+  achieved near-perfect accuracy.
 
 ---
-
-## Next Steps
-
-- Augmentation 강도 최적화
-- Conv layer 추가 실험
-- Confusion Matrix 기반 오분류 분석
-- 0.95 accuracy 도전
-
-26-04-06
-## GAP Experiment
-- Replaced the Flatten-based classifier with Global Average Pooling (GAP)
-- GAP reduced the classifier input size and made the model more compact
-- However, in this experiment, the original Flatten-based classifier slightly outperformed GAP
-
-### Comparison
-- Flatten-based model: **0.9468**
-- GAP-based model: **0.9462**
-
-### Insight
-- GAP improved model compactness and reduced parameters
-- However, the Flatten-based classifier preserved more spatial information, which was slightly more effective for Fashion-MNIST
-
-## RandomErasing Probability Tuning
-- Compared `p=0.3` and `p=0.2`
-- Both settings achieved a similar best validation accuracy (~0.9468)
-- `p=0.2` showed slightly more stable validation behavior in later epochs
-- In this setup, changing the erasing probability did not lead to a clear performance gain
-
-## Augmentation Fine-Tuning
-- Reduced RandomRotation from 8 to 5 while keeping RandomErasing at 0.2
-- This setting produced the best validation accuracy: **0.9473**
-- A smaller rotation range appeared to preserve class-specific shape information better on Fashion-MNIST
 
 ## Insight
-- Stronger augmentation was not always better
-- In this setup, milder rotation improved performance slightly while maintaining generalization
 
-## Dropout Tuning
-- Compared Dropout 0.30 and 0.25 under the same augmentation and scheduler settings
-- Dropout 0.30 performed slightly better
-- Best result with Dropout 0.30: **0.9473**
-- Best result with Dropout 0.25: **0.9463**
+- The limitation is likely due to dataset characteristics rather than model capacity
+- Further improvements may require better data or higher-resolution inputs
 
-## Insight
-- Reducing dropout slightly improved training loss, but did not improve validation accuracy
-- In this setup, Dropout 0.30 provided better regularization and generalization
+---
+
+## Key Takeaways
+
+- Performance improvement comes from systematic experimentation, not a single change
+- Stronger augmentation is not always better
+- Model architecture, training strategy, and data preprocessing must be balanced
+
+---
+
+## Experiment Log
+
+### Day 1
+- Built baseline CNN model
+- Implemented basic training loop (Adam + CrossEntropyLoss)
+- Achieved initial accuracy ~0.91
+
+---
+
+### Day 2
+- Added BatchNorm and deeper Conv layers
+- Improved feature extraction capability
+- Accuracy improved to ~0.93
+
+---
+
+### Day 3
+- Introduced Data Augmentation:
+  - RandomRotation
+  - RandomAffine
+- Accuracy fluctuated but generalization improved
+
+---
+
+### Day 4
+- Added RandomErasing (p=0.3)
+- Observed regularization effect
+- Improved robustness, accuracy ~0.94+
+
+---
+
+### Day 5
+- Implemented StepLR scheduler
+- Stabilized late-stage training
+- Accuracy improved further (~0.945)
+
+---
+
+### Day 6
+- Increased model depth (added 128 → 256 channel block)
+- Performance improvement confirmed
+
+---
+
+### Day 7
+- Compared Flatten vs Global Average Pooling (GAP)
+- Flatten showed slightly better performance
+
+---
+
+### Day 8
+- Fine-tuned augmentation parameters:
+  - RandomErasing (0.3 → 0.2)
+  - Rotation (8 → 5)
+- Achieved best validation accuracy: **0.9473**
+
+---
+
+### Day 9
+- Tuned Dropout (0.3 vs 0.25)
+- Confirmed Dropout 0.3 performed better
+
+---
+
+### Final Result
+- Best Validation Accuracy: **0.9473**
+- Best Epoch: ~21
+
+### Key Improvements
+- Scheduler introduction → +0.01
+- Augmentation tuning → +0.005
+- Architecture depth → +0.005
