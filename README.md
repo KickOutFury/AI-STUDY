@@ -74,3 +74,9 @@ Through these projects, I aim to develop a strong understanding of model behavio
 - Computer Vision projects (CIFAR-10, transfer learning)
 - NLP (LLM / RAG systems)
 - MLOps and deployment
+
+### 5. CIFAR-10 Image Classification (CNN)
+- Model: CNN (PyTorch)
+- Accuracy: 0.71 (3 epochs baseline)
+- Focus: CNN architecture, data augmentation, training pipeline
+- Next: Model tuning (GAP, deeper layers, regularization)

@@ -11,3 +11,11 @@ __pycache__/
 *.pyc
 *.log
 .env
+
+data/
+*.pth
+*.tar.gz
+__pycache__/
+.ipynb_checkpoints/data/
+*.pth
+*.tar.gz
